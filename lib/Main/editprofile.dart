@@ -20,7 +20,7 @@ class _editprofileState extends State<editprofile> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.only(top: 54.0, right: 16, left: 16),
+            padding: EdgeInsets.only(top: 48.0, right: 16, left: 16),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

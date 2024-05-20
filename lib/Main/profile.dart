@@ -36,7 +36,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 56),
+                  padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 48),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

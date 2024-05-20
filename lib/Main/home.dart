@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class home extends StatefulWidget {
   const home({super.key});
-  
 
   @override
   State<home> createState() => _homeState();
@@ -65,8 +63,8 @@ class _homeState extends State<home> {
                       ),
                       hintText: ("Makan Siang"),
                       hintStyle: TextStyle(
-                          fontSize: 12.0,fontFamily: "JakartaSans",
-                          
+                          fontSize: 12.0,
+                          fontFamily: "JakartaSans",
                           fontWeight: FontWeight.bold,
                           color: HexColor("6B7280")),
                       border: OutlineInputBorder(
@@ -83,12 +81,15 @@ class _homeState extends State<home> {
             SizedBox(height: 48),
             Text(
               "Sisa Uang Tersedia",
-              style: TextStyle(fontSize: 10,fontFamily: "JakartaSans"),
+              style: TextStyle(fontSize: 10, fontFamily: "JakartaSans"),
             ),
             SizedBox(height: 4),
             Text(
               sisaUang,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,fontFamily: "JakartaSans"),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "JakartaSans"),
             ),
             SizedBox(height: 16),
             Row(
@@ -107,8 +108,10 @@ class _homeState extends State<home> {
                     children: [
                       Text(
                         "Pendapatan Bulan ini",
-                        style:
-                            TextStyle(fontSize: 10, color: HexColor("6B7280"),fontFamily: "JakartaSans"),
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: HexColor("6B7280"),
+                            fontFamily: "JakartaSans"),
                       ),
                       SizedBox(
                         height: 4.0,
@@ -128,7 +131,8 @@ class _homeState extends State<home> {
                             style: TextStyle(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold,
-                                color: HexColor("16A34A"),fontFamily: "JakartaSans"),
+                                color: HexColor("16A34A"),
+                                fontFamily: "JakartaSans"),
                           )
                         ],
                       )
@@ -151,8 +155,10 @@ class _homeState extends State<home> {
                     children: [
                       Text(
                         "Pengeluaran Bulan ini",
-                        style:
-                            TextStyle(fontSize: 10, color: HexColor("6B7280"),fontFamily: "JakartaSans"),
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: HexColor("6B7280"),
+                            fontFamily: "JakartaSans"),
                       ),
                       SizedBox(
                         height: 4.0,
@@ -172,7 +178,8 @@ class _homeState extends State<home> {
                             style: TextStyle(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold,
-                                color: HexColor("DC2626"),fontFamily: "JakartaSans"),
+                                color: HexColor("DC2626"),
+                                fontFamily: "JakartaSans"),
                           )
                         ],
                       )
@@ -189,14 +196,15 @@ class _homeState extends State<home> {
               children: [
                 Text(
                   "Riwayat Transaksi",
-                  style: TextStyle(fontSize: 16.0,fontFamily: "JakartaSans"),
+                  style: TextStyle(fontSize: 16.0, fontFamily: "JakartaSans"),
                 ),
                 GestureDetector(
                   onTap: () {},
                   child: Text(
                     "Lihat Semua",
                     style: TextStyle(
-                        fontSize: 10.0,fontFamily: "JakartaSans",
+                        fontSize: 10.0,
+                        fontFamily: "JakartaSans",
                         fontWeight: FontWeight.bold,
                         color: HexColor("6B7280")),
                   ),
@@ -300,24 +308,6 @@ class _homeState extends State<home> {
                   SizedBox(
                     height: 8.0,
                   ),
-                  riwayatTransaksi(
-                      iconAsset: "images/money.png",
-                      title: "Pemasukan",
-                      date: "12-Des-2023",
-                      amount: "Rp 2.000.0000",
-                      hexColor: "214F3B"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/piggybank.png",
-                      title: "Pengeluaran",
-                      date: "17-Sep-2023",
-                      amount: "- Rp 2.000.0000",
-                      hexColor: "DC2626"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
                 ],
               ),
             )),
@@ -329,13 +319,11 @@ class _homeState extends State<home> {
 }
 
 Widget riwayatTransaksi(
-    {
-    required iconAsset,
+    {required iconAsset,
     required title,
     required date,
     required amount,
-    required hexColor
-    }) {
+    required hexColor}) {
   return Container(
     padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
     decoration: BoxDecoration(
@@ -366,7 +354,10 @@ Widget riwayatTransaksi(
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold,fontFamily: "JakartaSans"),
+                  style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "JakartaSans"),
                 ),
                 SizedBox(
                   height: 8.0,
@@ -374,7 +365,8 @@ Widget riwayatTransaksi(
                 Text(
                   date,
                   style: TextStyle(
-                    fontSize: 10.0,fontFamily: "JakartaSans",
+                    fontSize: 10.0,
+                    fontFamily: "JakartaSans",
                   ),
                 ),
               ],
@@ -384,7 +376,8 @@ Widget riwayatTransaksi(
         Text(
           amount,
           style: TextStyle(
-              fontSize: 12.0,fontFamily: "JakartaSans",
+              fontSize: 12.0,
+              fontFamily: "JakartaSans",
               fontWeight: FontWeight.bold,
               color: HexColor(hexColor)),
         ),

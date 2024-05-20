@@ -63,7 +63,7 @@ class _forgetpasswordState extends State<forgetpassword> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 48),
             child: SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height,

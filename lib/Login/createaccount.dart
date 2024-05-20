@@ -19,7 +19,7 @@ class _createaccountState extends State<createaccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top:48),
         child: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,

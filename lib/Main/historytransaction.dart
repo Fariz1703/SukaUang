@@ -217,7 +217,6 @@ class _historytransactionState extends State<historytransaction> {
                 ],
               ),
             )),],),
-            
       ),
     );
   }

@@ -11,9 +11,9 @@ class home extends StatefulWidget {
 }
 
 var search = "";
-var sisaUang = "Rp 2.000.000";
+var sisaUang = "Rp 1.945.000";
 var pendapatan = "2.000.000";
-var pengeluaran = "2.000.000";
+var pengeluaran = "55.000";
 
 class _homeState extends State<home> {
   @override
@@ -31,14 +31,17 @@ class _homeState extends State<home> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      right: 12.0, left: 12.0, bottom: 6.0, top: 6.0),
+                    right: 12.0,
+                    left: 12.0,
+                    bottom: 6.0,
+                  ),
                   child: SvgPicture.asset(
                     "images/logo.svg",
-                    width: 32,
+                    width: 40,
                   ),
                 ),
                 SizedBox(
-                  width: 32,
+                  width: 8,
                 ),
                 Expanded(
                   child: TextField(
@@ -127,7 +130,7 @@ class _homeState extends State<home> {
                             width: 8.0,
                           ),
                           Text(
-                            sisaUang,
+                            pendapatan,
                             style: TextStyle(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold,
@@ -220,94 +223,28 @@ class _homeState extends State<home> {
                 children: [
                   riwayatTransaksi(
                       iconAsset: "images/money.png",
-                      title: "Pemasukan",
+                      title: "Makan Siang",
                       date: "12-Des-2023",
-                      amount: "Rp 2.000.0000",
-                      hexColor: "214F3B"),
+                      amount: "- Rp 20.000",
+                      hexColor: "DC2626"),
                   SizedBox(
                     height: 8.0,
                   ),
                   riwayatTransaksi(
                       iconAsset: "images/piggybank.png",
-                      title: "Pengeluaran",
-                      date: "17-Sep-2023",
-                      amount: "- Rp 2.000.0000",
-                      hexColor: "DC2626"),
+                      title: "Gajian",
+                      date: "13-Sep-2023",
+                      amount: "Rp 2.000.0000",
+                      hexColor: "214F3B"),
                   SizedBox(
                     height: 8.0,
                   ),
                   riwayatTransaksi(
                       iconAsset: "images/money.png",
-                      title: "Pemasukan",
+                      title: "Jajan",
                       date: "12-Des-2023",
-                      amount: "Rp 2.000.0000",
-                      hexColor: "214F3B"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/piggybank.png",
-                      title: "Pengeluaran",
-                      date: "17-Sep-2023",
-                      amount: "- Rp 2.000.0000",
+                      amount: "- Rp 35.000",
                       hexColor: "DC2626"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/money.png",
-                      title: "Pemasukan",
-                      date: "12-Des-2023",
-                      amount: "Rp 2.000.0000",
-                      hexColor: "214F3B"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/piggybank.png",
-                      title: "Pengeluaran",
-                      date: "17-Sep-2023",
-                      amount: "- Rp 2.000.0000",
-                      hexColor: "DC2626"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/money.png",
-                      title: "Pemasukan",
-                      date: "12-Des-2023",
-                      amount: "Rp 2.000.0000",
-                      hexColor: "214F3B"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/piggybank.png",
-                      title: "Pengeluaran",
-                      date: "17-Sep-2023",
-                      amount: "- Rp 2.000.0000",
-                      hexColor: "DC2626"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/money.png",
-                      title: "Pemasukan",
-                      date: "12-Des-2023",
-                      amount: "Rp 2.000.0000",
-                      hexColor: "214F3B"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  riwayatTransaksi(
-                      iconAsset: "images/piggybank.png",
-                      title: "Pengeluaran",
-                      date: "17-Sep-2023",
-                      amount: "- Rp 2.000.0000",
-                      hexColor: "DC2626"),
-                  SizedBox(
-                    height: 8.0,
-                  ),
                 ],
               ),
             )),

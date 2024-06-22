@@ -12,6 +12,40 @@ class editprofile extends StatefulWidget {
   State<editprofile> createState() => _editprofileState();
 }
 
+  void showFloatingText(BuildContext context, String message) {
+    final overlay = Overlay.of(context);
+    final overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: 100,
+        left: MediaQuery.of(context).size.width * 0.2,
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: HexColor("666666"),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "JakartaSans"),
+            ),
+          ),
+        ),
+      ),
+    );
+    overlay.insert(overlayEntry);
+    Future.delayed(Duration(seconds: 2), () {
+      overlayEntry.remove();
+    });
+  }
+
 var newname = "";
 var newemail = "";
 
@@ -124,8 +158,9 @@ class _editprofileState extends State<editprofile> {
                       ),
                     ],
                   ),SizedBox(height: 300,),
-                                  ElevatedButton(
+                  ElevatedButton(
                   onPressed: () {
+                          showFloatingText(context,"Fitur ini masih dalam pengembangan, nantikan pembaharuan dari kami");
                     Get.back();
                   },
                   style: ElevatedButton.styleFrom(

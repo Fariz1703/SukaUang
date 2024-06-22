@@ -1,20 +1,35 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sukauang/Login/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sukauang/Main/BottomNavbar.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  bool isLoggedIn = await checkLoginStatus();
+  runApp(MyApp(isLoggedIn: isLoggedIn));
+  changeIndex(0);
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+Future<bool> checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ; 
+  return token != null && token.isNotEmpty;
+}
 
-  // This widget is the root of your application.
+
+class MyApp extends StatelessWidget {
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
+
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: login(),
+      home: isLoggedIn ? bottomnavbar() : login(),
     );
   }
 }

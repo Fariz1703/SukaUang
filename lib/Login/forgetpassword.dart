@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sukauang/GetApi/sendResetpw.dart';
 import 'package:sukauang/Login/login.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: forgetpassword(),
-    );
-  }
-}
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sukauang/Login/otppw.dart';
 
 class forgetpassword extends StatefulWidget {
   const forgetpassword({super.key});
@@ -25,8 +15,85 @@ class forgetpassword extends StatefulWidget {
 }
 
 class _forgetpasswordState extends State<forgetpassword> {
-  var email = "";
-  var password = "";
+  final sendresetpw _sendresetpw = sendresetpw();
+  OverlayEntry? _overlayEntry;
+  TextEditingController _email = TextEditingController();
+  bool _isButtonDisabled = true;
+
+  void showProgress(BuildContext context, bool isLoading) {
+    final overlay = Overlay.of(context);
+    if (overlay == null) return;
+
+    if (isLoading) {
+      if (_overlayEntry == null) {
+        _overlayEntry = OverlayEntry(
+          builder: (context) => Positioned(
+            top: 100,
+            left: MediaQuery.of(context).size.width * 0.2,
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Material(
+              color: Colors.transparent,
+              child: Center(
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+          ),
+        );
+        overlay.insert(_overlayEntry!);
+      }
+    } else {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+    }
+  }
+
+  Future<void> savemail(String mail) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('mail', mail);
+  }
+
+  void _handleSubmit() async {
+    setState(() {
+      showProgress(context, true);
+    });
+    try {
+      final response = await _sendresetpw.sendresetPW(
+        _email.text,
+      );
+      if (response.success == 'true') {
+        showFloatingText(
+            context, " Email Berhasil Terkirim, Silakan Cek Email Anda");
+        savemail(_email.text);
+        _email.clear();
+        setState() {
+          _isButtonDisabled = true;
+        }
+        Get.off(otppw());
+      } else {
+        showFloatingText(context, response.message);
+        setState() {
+          _isButtonDisabled = true;
+        }
+      }
+    } catch (error) {
+      showFloatingText(context, 'Error: $error');
+      setState() {
+        _isButtonDisabled = true;
+      }
+    } finally {
+      showProgress(context, false);
+setState(() {
+        _isButtonDisabled = true;
+});
+    }
+  }
 
   void showFloatingText(BuildContext context, String message) {
     final overlay = Overlay.of(context);
@@ -38,15 +105,19 @@ class _forgetpasswordState extends State<forgetpassword> {
         child: Material(
           color: Colors.transparent,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: HexColor("666666"),
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 14.0,fontFamily: "JakartaSans"),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "JakartaSans"),
             ),
           ),
         ),
@@ -72,7 +143,7 @@ class _forgetpasswordState extends State<forgetpassword> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child:Image.asset(
+                      child: Image.asset(
                         "images/forgetpassword.png",
                         height: 360,
                       ),
@@ -80,15 +151,19 @@ class _forgetpasswordState extends State<forgetpassword> {
                     Text(
                       "Lupa Password",
                       style: TextStyle(
-                          fontSize: 24.0, fontWeight: FontWeight.bold,fontFamily: "JakartaSans"),
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "JakartaSans"),
                     ),
                     SizedBox(
                       height: 16.0,
                     ),
                     Text(
                       "Masukkan email anda dan kami akan mengirimkan prosedur untuk mengubah kata sandi anda.",
-                      style:
-                          TextStyle(fontSize: 12.0, color: HexColor("6B7280"),fontFamily: "JakartaSans"),
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          color: HexColor("6B7280"),
+                          fontFamily: "JakartaSans"),
                     ),
                     SizedBox(
                       height: 16.0,
@@ -97,11 +172,7 @@ class _forgetpasswordState extends State<forgetpassword> {
                       children: [
                         Expanded(
                           child: TextField(
-                            onChanged: (value) {
-                              setState(() {
-                                email = value;
-                              });
-                            },
+                            controller: _email,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(
                                 left: 16.0,
@@ -112,16 +183,16 @@ class _forgetpasswordState extends State<forgetpassword> {
                               prefixIcon: Padding(
                                 padding:
                                     EdgeInsets.only(left: 24.0, right: 16.0),
-                                child:SvgPicture.asset(
+                                child: SvgPicture.asset(
                                   "images/mail.svg",
                                   width: 24.0,
                                 ),
                               ),
                               hintText: ("Email"),
                               hintStyle: TextStyle(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.bold,fontFamily: "JakartaSans"
-                              ),
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "JakartaSans"),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(50.0),
                                 borderSide: BorderSide.none,
@@ -144,9 +215,9 @@ class _forgetpasswordState extends State<forgetpassword> {
                             Text(
                               "Sudah Punya Akun? ",
                               style: TextStyle(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w300,fontFamily: "JakartaSans"
-                              ),
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: "JakartaSans"),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -155,10 +226,10 @@ class _forgetpasswordState extends State<forgetpassword> {
                               child: Text(
                                 "Login",
                                 style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: HexColor("214F3B"),fontFamily: "JakartaSans"
-                                ),
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: HexColor("214F3B"),
+                                    fontFamily: "JakartaSans"),
                               ),
                             ),
                           ],
@@ -169,9 +240,14 @@ class _forgetpasswordState extends State<forgetpassword> {
                       height: 40.0,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        showFloatingText(context, "Email Berhasil Terkirim");
-                      },
+                      onPressed: _isButtonDisabled
+                          ? () {
+                              setState(() {
+                                _handleSubmit();
+                                _isButtonDisabled = false;
+                              });
+                            }
+                          : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: HexColor("4FAF5A"),
                         shape: RoundedRectangleBorder(
@@ -185,10 +261,10 @@ class _forgetpasswordState extends State<forgetpassword> {
                         child: Text(
                           "Kirim Email",
                           style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,fontFamily: "JakartaSans"
-                          ),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontFamily: "JakartaSans"),
                         ),
                       ),
                     ),
